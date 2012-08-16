@@ -211,14 +211,14 @@ describe Google::APIClient::BatchRequest do
         @call1 = {
           :api_method => @calendar.events.insert,
           :parameters => {'calendarId' => 'myemail@mydomain.tld'},
-          :body => MultiJson.decode(event1),
+          :body => MultiJson.dump(event1),
           :headers => {'Content-Type' => 'application/json'}
         }
 
         @call2 = {
           :api_method => @calendar.events.insert,
           :parameters => {'calendarId' => 'myemail@mydomain.tld'},
-          :body => MultiJson.decode(event2),
+          :body => MultiJson.dump(event2),
           :headers => {'Content-Type' => 'application/json'}
         }
       end

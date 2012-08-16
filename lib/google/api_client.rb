@@ -283,7 +283,7 @@ module Google
           "Expected String or StringIO, got #{discovery_document.class}."
       end
       @discovery_documents["#{api}:#{version}"] =
-        MultiJson.encode(discovery_document)
+        MultiJson.load(discovery_document)
     end
 
     ##
@@ -299,7 +299,7 @@ module Google
         )
         response = self.transmit(:request => request)
         if response.status >= 200 && response.status < 300
-          MultiJson.encode(response.body)
+          MultiJson.load(response.body)
         elsif response.status >= 400
           case response.status
           when 400...500
@@ -333,7 +333,7 @@ module Google
         )
         response = self.transmit(:request => request)
         if response.status >= 200 && response.status < 300
-          MultiJson.encode(response.body)
+          MultiJson.load(response.body)
         elsif response.status >= 400
           case response.status
           when 400...500
@@ -486,7 +486,7 @@ module Google
         response = self.transmit(:request => request)
         if response.status >= 200 && response.status < 300
           @certificates.merge!(
-            Hash[MultiJson.encode(response.body).map do |key, cert|
+            Hash[MultiJson.load(response.body).map do |key, cert|
               [key, OpenSSL::X509::Certificate.new(cert)]
             end]
           )

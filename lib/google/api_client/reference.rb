@@ -131,7 +131,7 @@ module Google
 
       def serialize_body(body)
         return body.to_json if body.respond_to?(:to_json)
-        return MultiJson.decode(options[:body_object].to_hash) if body.respond_to?(:to_hash)
+        return MultiJson.dump(options[:body_object].to_hash) if body.respond_to?(:to_hash)
         raise TypeError, 'Could not convert body object to JSON.' +
                          'Must respond to :to_json or :to_hash.'
       end
