@@ -63,7 +63,8 @@ module Google
         self.headers = options[:headers] || {}
         if options[:media]
           self.media = options[:media]
-          upload_type = parameters['uploadType'] || parameters['upload_type']
+          _parameters = Hash[*self.parameters.flatten]
+          upload_type = _parameters['uploadType'] || _parameters['upload_type']
           case upload_type
           when "media"
             if options[:body] || options[:body_object]
