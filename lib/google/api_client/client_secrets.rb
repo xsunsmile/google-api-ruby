@@ -39,7 +39,7 @@ module Google
             search_path = File.expand_path(File.join(search_path, '..'))
           end
         end
-        data = File.open(filename, 'r') { |file| MultiJson.load(file.read) }
+        data = File.open(filename, 'r') { |file| MultiJson.encode(file.read) }
         return self.new(data)
       end
 
@@ -77,7 +77,7 @@ module Google
       )
 
       def to_json
-        return MultiJson.dump({
+        return MultiJson.decode({
           self.flow => ({
             'client_id' => self.client_id,
             'client_secret' => self.client_secret,
